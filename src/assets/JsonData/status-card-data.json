@@ -1,0 +1,23 @@
+[
+  {
+    "icon": "bx bx-dollar-circle",
+    "count": "2,632$",
+    "title": " Revenue"
+  },
+
+  {
+    "icon": "bx bx-receipt",
+    "count": "1,711",
+    "title": " orders"
+  },
+  {
+    "icon": "bx bx-user",
+    "count": "1,995",
+    "title": " users"
+  },
+  {
+    "icon": "bx bx-movie",
+    "count": "2,001",
+    "title": "Movies"
+  }
+]
