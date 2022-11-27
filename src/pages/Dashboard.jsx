@@ -22,7 +22,7 @@ const chartOptions = {
     },
     {
       name: "Store Customers",
-      data: [40, 30, 70, 80, 40, 16, 40, 20, 51, 10],
+      data: [40, 30, 70, 80, 40, 16, 40, 20, 51],
     },
   ],
   options: {
