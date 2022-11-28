@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-
 import Chart from "react-apexcharts";
 
 import { useSelector } from "react-redux";
@@ -205,7 +203,7 @@ const Dashboard = () => {
         <div className="col-4">
           <div className="card">
             <div className="card__header">
-              <h3>top users</h3>
+              <h3>top 10 users</h3>
             </div>
             <div className="card__body">
               <Table
@@ -215,15 +213,15 @@ const Dashboard = () => {
                 renderBody={(item, index) => renderCusomerBody(item, index)}
               />
             </div>
-            <div className="card__footer">
+            {/* <div className="card__footer">
               <Link to="/">view all</Link>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="col-8">
           <div className="card">
             <div className="card__header">
-              <h3>latest orders</h3>
+              <h3>latest 10 orders</h3>
             </div>
             <div className="card__body">
               <Table
@@ -233,9 +231,9 @@ const Dashboard = () => {
                 renderBody={(item, index) => renderOrderBody(item, index)}
               />
             </div>
-            <div className="card__footer">
+            {/* <div className="card__footer">
               <Link to="/">view all</Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
