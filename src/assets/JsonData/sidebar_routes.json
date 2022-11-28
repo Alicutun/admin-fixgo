@@ -7,12 +7,12 @@
   {
     "display_name": "Users",
     "route": "/users",
-    "icon": "bx bx-user-pin"
+    "icon": "bx bx-user"
   },
   {
     "display_name": "Movies",
     "route": "/movies",
-    "icon": "bx bx-package"
+    "icon": "bx bx-film"
   },
   {
     "display_name": "Orders",
