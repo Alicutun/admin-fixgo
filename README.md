@@ -4,7 +4,12 @@
 
 # Chức năng
 
-- Dashboard: thống kê doanh thu, số lượng thành viên, số lượng phim đang có, số lượng đơn hàng
+- Dashboard: thống kê
+
+* doanh thu,số lượng đơn hàng: theo ngày, tháng và tổng từ trước đến nay
+* số lượng thành viên đang có
+* số lượng phim đang có
+
 - Thống kê quản lý: Users, Movies, Orders,
 
 * User: đóng mở tài khoản

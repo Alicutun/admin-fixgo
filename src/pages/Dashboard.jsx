@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState, useEffect, useMemo } from "react";
 import Chart from "react-apexcharts";
 
 import { useSelector } from "react-redux";
@@ -11,6 +10,8 @@ import Table from "../components/table/Table";
 import Badge from "../components/badge/Badge";
 
 import statusCards from "../assets/JsonData/status-card-data.json";
+
+import axios from "axios";
 
 const chartOptions = {
   series: [
@@ -55,7 +56,6 @@ const chartOptions = {
     },
   },
 };
-
 const topCustomers = {
   head: ["user", "total orders", "total spending"],
   body: [
@@ -92,8 +92,8 @@ const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
 const renderCusomerBody = (item, index) => (
   <tr key={index}>
     <td>{item.username}</td>
-    <td>{item.order}</td>
-    <td>{item.price}</td>
+    <td>{item.totalOrders}</td>
+    <td>{item.totalSpending}</td>
   </tr>
 );
 
@@ -161,22 +161,115 @@ const renderOrderBody = (item, index) => (
 
 const Dashboard = () => {
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
+  const d = new Date();
+  const a = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+  const [data, setData] = useState([]);
+  const [dataTotal, setDataTotal] = useState([
+    {
+      icon: "bx bx-dollar-circle",
+      count: "0$",
+      title: " Revenue",
+    },
 
+    {
+      icon: "bx bx-receipt",
+      count: "0",
+      title: " orders",
+    },
+    {
+      icon: "bx bx-user",
+      count: "0",
+      title: " users",
+    },
+    {
+      icon: "bx bx-film",
+      count: "0",
+      title: "Movies",
+    },
+  ]);
+  const [dataUser, setDataUser] = useState([]);
+  const [dataOrder, setDataOrder] = useState([]);
+
+  // fetchApi
+  useEffect(() => {
+    fetchApi1();
+    fetchApi2();
+    fetchApi3();
+  }, []);
+
+  const fetchApi1 = async () => {
+    const { data } = await axios.get(
+      `https://backend-boo.herokuapp.com/api/summing/summary/${a}`
+    );
+    await setData(data);
+    await setDataTotal(data?.total);
+  };
+  console.log(data);
+  const fetchApi2 = async () => {
+    const { data } = await axios.get(
+      `https://backend-boo.herokuapp.com/api/summing/top10user`
+    );
+    await setDataUser(data);
+  };
+
+  const fetchApi3 = async () => {
+    const { data } = await axios.get(
+      `https://backend-boo.herokuapp.com/api/summing/top10recent`
+    );
+    await setDataOrder(data);
+  };
+  const test = () => {
+    console.log(dataUser);
+    return (
+      <Table
+        headData={topCustomers.head}
+        renderHead={(item, index) => renderCusomerHead(item, index)}
+        bodyData={dataUser}
+        renderBody={(item, index) => renderCusomerBody(item, index)}
+      />
+    );
+  };
+  const [dataTime, setdataTime] = useState([]);
+  const handle = (e) => {
+    const value = e.target.value;
+    if (value === "mounth") return setdataTime(data?.mounth);
+    if (value === "day") return setdataTime(data?.day);
+    if (value === "total") return setdataTime(data?.total);
+  };
+  console.log("dataTime", dataTime);
   return (
     <div>
       <h2 className="page-header">Dashboard</h2>
+      <div style={{ fontSize: "20px" }}>
+        Revenue and Orders by:&emsp;
+        <select name="" id="" onChange={handle} className="select">
+          <option value="total">Total</option>
+          <option value="day">Day</option>
+          <option value="mounth">Mounth</option>
+        </select>
+      </div>
       <div className="row">
         <div className="col-6">
           <div className="row">
-            {statusCards.map((item, index) => (
-              <div className="col-6" key={index}>
-                <StatusCard
-                  icon={item.icon}
-                  count={item.count}
-                  title={item.title}
-                />
-              </div>
-            ))}
+            {dataTime.length > 0
+              ? dataTime?.map((item, index) => (
+                  <div className="col-6" key={index}>
+                    <StatusCard
+                      icon={item.icon}
+                      count={item.count}
+                      title={item.title}
+                    />
+                  </div>
+                ))
+              : dataTotal?.map((item, index) => (
+                  <div className="col-6" key={index}>
+                    <StatusCard
+                      icon={item.icon}
+                      count={item.count}
+                      title={item.title}
+                    />
+                  </div>
+                ))}
           </div>
         </div>
         <div className="col-6">
@@ -209,7 +302,7 @@ const Dashboard = () => {
               <Table
                 headData={topCustomers.head}
                 renderHead={(item, index) => renderCusomerHead(item, index)}
-                bodyData={topCustomers.body}
+                bodyData={dataUser}
                 renderBody={(item, index) => renderCusomerBody(item, index)}
               />
             </div>
@@ -227,7 +320,7 @@ const Dashboard = () => {
               <Table
                 headData={latestOrders.header}
                 renderHead={(item, index) => renderOrderHead(item, index)}
-                bodyData={latestOrders.body}
+                bodyData={dataOrder.body}
                 renderBody={(item, index) => renderOrderBody(item, index)}
               />
             </div>

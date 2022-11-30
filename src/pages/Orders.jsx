@@ -8,7 +8,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const { data } = await axios.get(
-        `https://backend-boo.herokuapp.com/api/bill/all`
+        `https://backend-boo.herokuapp.com/api/movies/listBillManage`
       );
       setData(data);
     };
@@ -17,14 +17,14 @@ const Orders = () => {
   console.log(data);
   const columns = useMemo(
     () => [
-      { field: "_id", headerName: "ID", width: 50 },
-      { field: "x", headerName: "User name", width: 100 },
-      { field: "dateorder", headerName: "Date Order", width: 100 },
+      { field: "idBill", headerName: "ID", width: 50 },
+      { field: "fullName", headerName: "User name", width: 100 },
+      { field: "createDate", headerName: "Date Order", width: 100 },
       { field: "movie", headerName: "Movie", width: 100 },
       { field: "cinema", headerName: "Cinema", width: 100 },
       { field: "date", headerName: "Date", width: 100 },
       { field: "session", headerName: "Session", width: 80 },
-      { field: "seat", headerName: "Seat ", width: 120 },
+      { field: "listItem", headerName: "Seat ", width: 120 },
       { field: "totalMoney", headerName: "Toltal Order", width: 100 },
 
       // {
@@ -48,7 +48,7 @@ const Orders = () => {
               <DataGrid
                 autoHeight
                 rows={data}
-                getRowId={(row) => row._id}
+                getRowId={(row) => row.idBill}
                 columns={columns}
                 rowsPerPageOptions={[5, 10, 20]}
                 pageSize={pageSize}

@@ -17,11 +17,12 @@ const Users = () => {
   console.log(data);
   const columns = useMemo(
     () => [
-      { field: "_id", headerName: "ID", width: 50 },
+      { field: "id", headerName: "ID", width: 50 },
       { field: "fullname", headerName: "Full Name", width: 150 },
       { field: "name", headerName: "Username", width: 100 },
       { field: "email", headerName: "Email", width: 200 },
-      { field: "total", headerName: "Total Order", width: 100 },
+      { field: "totalOrder", headerName: "Total Order", width: 100 },
+      { field: "totalSpending.sum", headerName: "Total Spending", width: 100 },
       { field: "createdAt", headerName: "Create", width: 110 },
       {
         field: "isActive",
@@ -44,7 +45,7 @@ const Users = () => {
               <DataGrid
                 autoHeight
                 rows={data}
-                getRowId={(row) => row._id}
+                getRowId={(row) => row.id}
                 columns={columns}
                 rowsPerPageOptions={[5, 10, 20]}
                 pageSize={pageSize}

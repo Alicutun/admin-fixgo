@@ -21,7 +21,7 @@ const Users = () => {
       { field: "genre", headerName: "Genre", width: 150 },
       { field: "rate", headerName: "Rate", width: 100 },
       { field: "price", headerName: "Price", width: 100 },
-      { field: "totalorders", headerName: "Total order", width: 100 },
+      { field: "totalOrder", headerName: "Total order", width: 100 },
       { field: "revenue", headerName: "Revenue", width: 100 },
 
       // {
@@ -36,7 +36,7 @@ const Users = () => {
   );
   return (
     <div>
-      <h2 className="page-header">Users</h2>
+      <h2 className="page-header">Movies</h2>
 
       <div className="row">
         <div className="col-12">
