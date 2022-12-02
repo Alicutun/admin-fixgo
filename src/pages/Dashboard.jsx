@@ -1,26 +1,20 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Chart from "react-apexcharts";
-
 import { useSelector } from "react-redux";
-
 import StatusCard from "../components/status-card/StatusCard";
-
 import Table from "../components/table/Table";
-
 import Badge from "../components/badge/Badge";
-
-import statusCards from "../assets/JsonData/status-card-data.json";
-
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 
 const chartOptions = {
   series: [
     {
-      name: "Online Customers",
+      name: "Data Fake",
       data: [40, 70, 20, 90, 36, 80, 30, 91, 60],
     },
     {
-      name: "Store Customers",
+      name: "Data Fake",
       data: [40, 30, 70, 80, 40, 16, 40, 20, 51],
     },
   ],
@@ -189,7 +183,32 @@ const Dashboard = () => {
   ]);
   const [dataUser, setDataUser] = useState([]);
   const [dataOrder, setDataOrder] = useState([]);
+  const [pageSize, setPageSize] = useState(5);
 
+  const columnsUser = useMemo(
+    () => [
+      { field: "stt", headerName: "", width: 10 },
+      { field: "username", headerName: "Full Name", width: 130 },
+      { field: "totalOrders", headerName: "Total Order", width: 100 },
+      { field: "totalSpending", headerName: "Total Spending", width: 120 },
+    ],
+    []
+  );
+  const columnsOrder = useMemo(
+    () => [
+      { field: "stt", headerName: "", width: 10 },
+      { field: "idorder", headerName: "Id", width: 100 },
+      {
+        field: "username",
+        headerClassName: "super-app-theme--header",
+        headerName: "Full Name",
+        width: 130,
+      },
+      { field: "date", headerName: "Date", width: 130 },
+      { field: "totalSPrice", headerName: "Price", width: 120 },
+    ],
+    []
+  );
   // fetchApi
   useEffect(() => {
     fetchApi1();
@@ -211,32 +230,30 @@ const Dashboard = () => {
     );
     await setDataUser(data);
   };
-
+  console.log("dataUser: ", dataUser);
   const fetchApi3 = async () => {
     const { data } = await axios.get(
       `https://backend-boo.herokuapp.com/api/summing/top10recent`
     );
     await setDataOrder(data);
   };
-  const test = () => {
-    console.log(dataUser);
-    return (
-      <Table
-        headData={topCustomers.head}
-        renderHead={(item, index) => renderCusomerHead(item, index)}
-        bodyData={dataUser}
-        renderBody={(item, index) => renderCusomerBody(item, index)}
-      />
-    );
-  };
+  console.log("dataOrder: ", dataOrder);
   const [dataTime, setdataTime] = useState([]);
   const handle = (e) => {
     const value = e.target.value;
-    if (value === "mounth") return setdataTime(data?.mounth);
-    if (value === "day") return setdataTime(data?.day);
-    if (value === "total") return setdataTime(data?.total);
+    switch (value) {
+      case "total":
+        return setdataTime(data?.total);
+      case "day":
+        return setdataTime(data?.day);
+      case "mounth":
+        return setdataTime(data?.mounth);
+      case "1mounthago":
+        return setdataTime(data?.onemounthago);
+      default:
+        return 0;
+    }
   };
-  console.log("dataTime", dataTime);
   return (
     <div>
       <h2 className="page-header">Dashboard</h2>
@@ -245,7 +262,9 @@ const Dashboard = () => {
         <select name="" id="" onChange={handle} className="select">
           <option value="total">Total</option>
           <option value="day">Day</option>
-          <option value="mounth">Mounth</option>
+          <option value="mounth">In Week</option>
+          <option value="currentweek">Mounth</option>
+          {/* <option value="1mounthago">1 Mounth ago</option> */}
         </select>
       </div>
       <div className="row">
@@ -298,14 +317,24 @@ const Dashboard = () => {
             <div className="card__header">
               <h3>top 10 users</h3>
             </div>
-            <div className="card__body">
+            <DataGrid
+              autoHeight
+              rows={dataUser}
+              getRowId={(row) => row.stt}
+              columns={columnsUser}
+              rowsPerPageOptions={[5, 10, 20]}
+              pageSize={pageSize}
+              onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            />
+            {/* <div className="card__body">
+              {console.log(dataUser)}
               <Table
                 headData={topCustomers.head}
                 renderHead={(item, index) => renderCusomerHead(item, index)}
                 bodyData={dataUser}
                 renderBody={(item, index) => renderCusomerBody(item, index)}
               />
-            </div>
+            </div> */}
             {/* <div className="card__footer">
               <Link to="/">view all</Link>
             </div> */}
@@ -316,14 +345,23 @@ const Dashboard = () => {
             <div className="card__header">
               <h3>latest 10 orders</h3>
             </div>
-            <div className="card__body">
+            <DataGrid
+              autoHeight
+              rows={dataOrder}
+              getRowId={(row) => row.stt}
+              columns={columnsOrder}
+              rowsPerPageOptions={[5, 10, 20]}
+              pageSize={pageSize}
+              onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            />
+            {/* <div className="card__body">
               <Table
                 headData={latestOrders.header}
                 renderHead={(item, index) => renderOrderHead(item, index)}
                 bodyData={dataOrder.body}
                 renderBody={(item, index) => renderOrderBody(item, index)}
               />
-            </div>
+            </div> */}
             {/* <div className="card__footer">
               <Link to="/">view all</Link>
             </div> */}

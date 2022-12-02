@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Users = () => {
   const [data, setData] = useState([]);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   useEffect(() => {
     const fetchUsers = async () => {
       const { data } = await axios.get(
@@ -17,8 +17,8 @@ const Users = () => {
   console.log(data);
   const columns = useMemo(
     () => [
-      { field: "name", headerName: "Movie Name", width: 200 },
-      { field: "genre", headerName: "Genre", width: 150 },
+      { field: "name", headerName: "Movie Name", width: 300 },
+      { field: "genre", headerName: "Genre", width: 100 },
       { field: "rate", headerName: "Rate", width: 100 },
       { field: "price", headerName: "Price", width: 100 },
       { field: "totalOrder", headerName: "Total order", width: 100 },

@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Orders = () => {
   const [data, setData] = useState([]);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   useEffect(() => {
     const fetchOrders = async () => {
       const { data } = await axios.get(
@@ -18,14 +18,14 @@ const Orders = () => {
   const columns = useMemo(
     () => [
       { field: "idBill", headerName: "ID", width: 50 },
-      { field: "fullName", headerName: "User name", width: 100 },
+      { field: "fullName", headerName: "User name", width: 130 },
       { field: "createDate", headerName: "Date Order", width: 100 },
-      { field: "movie", headerName: "Movie", width: 100 },
+      { field: "movie", headerName: "Movie", width: 120 },
       { field: "cinema", headerName: "Cinema", width: 100 },
       { field: "date", headerName: "Date", width: 100 },
-      { field: "session", headerName: "Session", width: 80 },
-      { field: "listItem", headerName: "Seat ", width: 120 },
-      { field: "totalMoney", headerName: "Toltal Order", width: 100 },
+      { field: "session", headerName: "Session", width: 70 },
+      { field: "listItem", headerName: "Seat ", width: 150 },
+      { field: "totalMoney", headerName: "Price", width: 100 },
 
       // {
       //   field: "isActive",
