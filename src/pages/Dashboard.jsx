@@ -218,7 +218,7 @@ const Dashboard = () => {
 
   const fetchApi1 = async () => {
     const { data } = await axios.get(
-      `https://backend-boo.herokuapp.com/api/summing/summary/${a}`
+      `https://backend-boo.vercel.app/api/summing/summary/${a}`
     );
     await setData(data);
     await setDataTotal(data?.total);
@@ -226,14 +226,14 @@ const Dashboard = () => {
   console.log(data);
   const fetchApi2 = async () => {
     const { data } = await axios.get(
-      `https://backend-boo.herokuapp.com/api/summing/top10user`
+      `https://backend-boo.vercel.app/api/summing/top10user`
     );
     await setDataUser(data);
   };
   console.log("dataUser: ", dataUser);
   const fetchApi3 = async () => {
     const { data } = await axios.get(
-      `https://backend-boo.herokuapp.com/api/summing/top10recent`
+      `https://backend-boo.vercel.app/api/summing/top10recent`
     );
     await setDataOrder(data);
   };
@@ -248,8 +248,9 @@ const Dashboard = () => {
         return setdataTime(data?.day);
       case "mounth":
         return setdataTime(data?.mounth);
-      case "1mounthago":
+      case "onemounthago":
         return setdataTime(data?.onemounthago);
+
       default:
         return 0;
     }
@@ -262,9 +263,9 @@ const Dashboard = () => {
         <select name="" id="" onChange={handle} className="select">
           <option value="total">Total</option>
           <option value="day">Day</option>
-          <option value="mounth">In Week</option>
-          <option value="currentweek">Mounth</option>
-          {/* <option value="1mounthago">1 Mounth ago</option> */}
+          <option value="currentweek">In Week</option>
+          <option value="mounth">Month</option>
+          <option value="onemounthago">Month ago</option>
         </select>
       </div>
       <div className="row">

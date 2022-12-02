@@ -8,7 +8,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const { data } = await axios.get(
-        `https://backend-boo.herokuapp.com/api/user`
+        `https://backend-boo.vercel.app/api/user`
       );
       setData(data);
     };

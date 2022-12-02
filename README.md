@@ -1,7 +1,3 @@
-## Nguồn tham khảo
-
-- https://www.youtube.com/watch?v=q8cabjyUTVY&t=856s
-
 # Chức năng
 
 - Dashboard: thống kê
@@ -15,3 +11,7 @@
   - Movies: thêm, chỉnh sửa movie
   - orders: lọc theo ngày, tuần, tháng, năm
   - .... từ từ nghiên cứu mở rộng tiếp
+
+## Nguồn giao diện tham khảo
+
+- https://www.youtube.com/watch?v=q8cabjyUTVY&t=856s

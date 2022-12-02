@@ -8,7 +8,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const { data } = await axios.get(
-        `https://backend-boo.herokuapp.com/api/movies/listBillManage`
+        `https://backend-boo.vercel.app/api/movies/listBillManage`
       );
       setData(data);
     };
