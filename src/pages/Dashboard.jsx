@@ -7,49 +7,6 @@ import Badge from "../components/badge/Badge";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 
-const chartOptions = {
-  series: [
-    {
-      name: "Data Fake",
-      data: [40, 70, 20, 90, 36, 80, 30, 91, 60],
-    },
-    {
-      name: "Data Fake",
-      data: [40, 30, 70, 80, 40, 16, 40, 20, 51],
-    },
-  ],
-  options: {
-    color: ["#6ab04c", "#2980b9"],
-    chart: {
-      background: "transparent",
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-      ],
-    },
-    legend: {
-      position: "top",
-    },
-    grid: {
-      show: false,
-    },
-  },
-};
 const topCustomers = {
   head: ["user", "total orders", "total spending"],
   body: [
@@ -183,6 +140,7 @@ const Dashboard = () => {
   ]);
   const [dataUser, setDataUser] = useState([]);
   const [dataOrder, setDataOrder] = useState([]);
+  const [chartOptionss, setChartOptions] = useState();
   const [pageSize, setPageSize] = useState(5);
 
   const columnsUser = useMemo(
@@ -209,11 +167,59 @@ const Dashboard = () => {
     ],
     []
   );
+  const chartOptions = {
+    series: [
+      {
+        name: "Data Fake",
+        // data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1250, 700],
+        data: chartOptionss?.series[0].data,
+      },
+      {
+        name: "Data Fake",
+        data: chartOptionss?.series[1].data,
+      },
+    ],
+    options: {
+      color: ["#6ab04c", "#2980b9"],
+      chart: {
+        background: "transparent",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      legend: {
+        position: "top",
+      },
+      grid: {
+        show: false,
+      },
+    },
+  };
   // fetchApi
   useEffect(() => {
     fetchApi1();
     fetchApi2();
     fetchApi3();
+    fetchApi4();
   }, []);
 
   const fetchApi1 = async () => {
@@ -223,21 +229,29 @@ const Dashboard = () => {
     await setData(data);
     await setDataTotal(data?.total);
   };
-  console.log(data);
+  // console.log(data);
   const fetchApi2 = async () => {
     const { data } = await axios.get(
       `https://backend-boo.vercel.app/api/summing/top10user`
     );
     await setDataUser(data);
   };
-  console.log("dataUser: ", dataUser);
+  // console.log("dataUser: ", dataUser);
   const fetchApi3 = async () => {
     const { data } = await axios.get(
       `https://backend-boo.vercel.app/api/summing/top10recent`
     );
     await setDataOrder(data);
   };
-  console.log("dataOrder: ", dataOrder);
+  const fetchApi4 = async () => {
+    const { data } = await axios.get(
+      `https://backend-boo.vercel.app/api/summing/summaryMoneyInThisYearAndLastYear`
+    );
+    await setChartOptions(data);
+  };
+  console.log(chartOptionss?.series[0].data);
+  console.log("chart object: ", chartOptionss);
+  // console.log("dataOrder: ", dataOrder);
   const [dataTime, setdataTime] = useState([]);
   const handle = (e) => {
     const value = e.target.value;
@@ -246,11 +260,12 @@ const Dashboard = () => {
         return setdataTime(data?.total);
       case "day":
         return setdataTime(data?.day);
+      case "currentweek":
+        return setdataTime(data?.currentweek);
       case "mounth":
         return setdataTime(data?.mounth);
       case "onemounthago":
         return setdataTime(data?.onemounthago);
-
       default:
         return 0;
     }
@@ -262,9 +277,9 @@ const Dashboard = () => {
         Revenue and Orders by:&emsp;
         <select name="" id="" onChange={handle} className="select">
           <option value="total">Total</option>
-          <option value="day">Day</option>
+          <option value="day">In Day</option>
           <option value="currentweek">In Week</option>
-          <option value="mounth">Month</option>
+          <option value="mounth">In Month</option>
           <option value="onemounthago">Month ago</option>
         </select>
       </div>
@@ -294,7 +309,6 @@ const Dashboard = () => {
         </div>
         <div className="col-6">
           <div className="card full-height">
-            {/* chart */}
             <Chart
               options={
                 themeReducer === "theme-mode-dark"
