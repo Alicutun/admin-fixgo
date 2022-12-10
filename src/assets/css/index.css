@@ -101,7 +101,10 @@ input:focus {
 .select option {
   border: 2px solid var(--main-color);
 }
-
+.orderby {
+  display: flex;
+  gap: 30px;
+}
 .card {
   padding: 30px;
   margin-bottom: 30px;
