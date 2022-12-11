@@ -60,7 +60,7 @@ const orderByDay = () => {
     fetchOrders();
   }, [id3]);
 
-  console.log("day 4 ", dataT);
+  // console.log("day 4 ", dataT);
   const columns = useMemo(
     () => [
       // { field: "idSession", headerName: "idSession", width: 200 },

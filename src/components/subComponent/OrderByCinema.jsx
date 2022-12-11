@@ -29,7 +29,7 @@ const OrderByCinema = () => {
     };
     fetchMovie();
   }, [id1]);
-  console.log(id1);
+  // console.log(id1);
   // Date
   const [day3, setDay3] = useState([]);
   const [id3, setId3] = useState("");

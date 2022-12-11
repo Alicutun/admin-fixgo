@@ -19,7 +19,7 @@ const Orders = () => {
   const columns = useMemo(
     () => [
       { field: "idBill", headerName: "ID", width: 50 },
-      { field: "fullName", headerName: "Full name", width: 10 },
+      { field: "fullName" || "username", headerName: "Full name", width: 120 },
       { field: "createDate", headerName: "Date Order", width: 100 },
       { field: "movie", headerName: "Movie", width: 120 },
       { field: "cinema", headerName: "Cinema", width: 100 },
