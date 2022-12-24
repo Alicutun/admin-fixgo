@@ -170,12 +170,12 @@ const Dashboard = () => {
   const chartOptions = {
     series: [
       {
-        name: "Data Fake",
+        name: "Current Year",
         // data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1250, 700],
         data: chartOptionss?.series[0].data,
       },
       {
-        name: "Data Fake",
+        name: "Last Year",
         data: chartOptionss?.series[1].data,
       },
     ],
