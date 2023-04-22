@@ -41,7 +41,7 @@ const Users = () => {
 		fetchUsers();
 	}, [suc]);
 	console.log(data);
-	console.log("aka");
+	console.log("aksa");
 	const fetchUsers = async () => {
 		const post = {
 			rate: 0,
