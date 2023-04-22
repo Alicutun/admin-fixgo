@@ -1,27 +1,32 @@
 [
-  {
-    "display_name": "Dashboard",
-    "route": "/",
-    "icon": "bx bx-category-alt"
-  },
-  {
-    "display_name": "Users",
-    "route": "/users",
-    "icon": "bx bx-user"
-  },
-  {
-    "display_name": "Movies",
-    "route": "/movies",
-    "icon": "bx bx-film"
-  },
-  {
-    "display_name": "Orders",
-    "route": "/orders",
-    "icon": "bx bx-cart"
-  },
-  {
-    "display_name": "settings",
-    "route": "/settings",
-    "icon": "bx bx-cog"
-  }
+	{
+		"display_name": "Dashboard",
+		"route": "/",
+		"icon": "bx bx-category-alt"
+	},
+	{
+		"display_name": "Ticket Checker",
+		"route": "/TicketChecker",
+		"icon": "bx bx-message-square-check"
+	},
+	{
+		"display_name": "Users",
+		"route": "/users",
+		"icon": "bx bx-user"
+	},
+	{
+		"display_name": "Movies",
+		"route": "/movies",
+		"icon": "bx bx-film"
+	},
+	{
+		"display_name": "Orders",
+		"route": "/orders",
+		"icon": "bx bx-cart"
+	},
+	{
+		"display_name": "settings",
+		"route": "/settings",
+		"icon": "bx bx-cog"
+	}
 ]
