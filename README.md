@@ -7,10 +7,13 @@
   - số lượng phim đang có
 
 - Thống kê quản lý: Users, Movies, Orders,
+
   - User: đóng mở tài khoản
   - Movies: thêm, chỉnh sửa movie
   - orders: lọc theo ngày, tuần, tháng, năm
   - .... từ từ nghiên cứu mở rộng tiếp
+
+- Add movie
 
 ## Nguồn giao diện tham khảo
 

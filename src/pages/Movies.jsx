@@ -85,7 +85,7 @@ const Users = () => {
 					Add Movie
 				</Button>
 			</Stack>
-			{!openAdd ? (
+			{openAdd ? (
 				<Stack mb='30px' rowGap={2}>
 					<Grid container>
 						<Typography
