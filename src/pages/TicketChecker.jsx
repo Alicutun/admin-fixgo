@@ -6,22 +6,29 @@ import axios from "axios";
 const TicketChecker = () => {
 	const [value, setValue] = useState("");
 	const [dataA, setData] = useState([]);
-	const [open, setOpen] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
 	console.log("value", value);
 	console.log("data", dataA);
 
 	const fetchData = async () => {
-		await setData([]);
-		const { data } = await axios.get(
-			`https://backend-boo.vercel.app/api/checkBill/billToday/${value}/`
-		);
-		await setData(data);
+		try {
+			const { data } = await axios.get(
+				`https://backend-boo.vercel.app/api/checkBill/billToday/${value}/`
+			);
+			await setData(data);
+		} catch {
+			setData([]);
+		}
 	};
 	const handleSubmit = () => {
-		setOpen(true);
+		setOpenModal(true);
 		fetchData();
 	};
-
+	const handleSearchEnter = (event) => {
+		if (event.key === "Enter") {
+			handleSubmit();
+		}
+	};
 	return (
 		<div>
 			<Stack direction='row' justifyContent='center'>
@@ -31,6 +38,7 @@ const TicketChecker = () => {
 						type='text'
 						placeholder='Checking tickets...'
 						onChange={(e) => setValue(e.target.value)}
+						onKeyUp={(e) => handleSearchEnter(e)}
 					/>
 					<i
 						className='bx bx-search'
@@ -40,8 +48,8 @@ const TicketChecker = () => {
 				</Box>
 			</Stack>
 
-			{open &&
-				(dataA.length > 0 ? (
+			{openModal &&
+				(dataA?.length > 0 ? (
 					<Stack
 						direction='column'
 						alignItems='center'
@@ -55,7 +63,16 @@ const TicketChecker = () => {
 						<Typography>Seat: {dataA[0].seat}</Typography>
 					</Stack>
 				) : (
-					<Typography> Not found </Typography>
+					<Stack
+						direction='column'
+						alignItems='center'
+						justifyContent='center'
+						marginTop='30px'
+					>
+						<Typography fontWeight='bold' fontSize={20}>
+							Not found
+						</Typography>
+					</Stack>
 				))}
 		</div>
 	);
