@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
-import Chart from "react-apexcharts";
-import { useSelector } from "react-redux";
-import StatusCard from "../components/status-card/StatusCard";
-import Table from "../components/table/Table";
-import Badge from "../components/badge/Badge";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
+import React, { useEffect, useMemo, useState } from "react";
+import Chart from "react-apexcharts";
+import { useSelector } from "react-redux";
+import Badge from "../components/badge/Badge";
+import StatusCard from "../components/status-card/StatusCard";
 
 const topCustomers = {
 	head: ["user", "total orders", "total spending"],
@@ -229,14 +228,12 @@ const Dashboard = () => {
 		await setData(data);
 		await setDataTotal(data?.total);
 	};
-	// console.log(data);
 	const fetchApi2 = async () => {
 		const { data } = await axios.get(
 			`https://backend-boo.vercel.app/api/summing/top10user`
 		);
 		await setDataUser(data);
 	};
-	// console.log("dataUser: ", dataUser);
 	const fetchApi3 = async () => {
 		const { data } = await axios.get(
 			`https://backend-boo.vercel.app/api/summing/top10recent`
@@ -249,9 +246,6 @@ const Dashboard = () => {
 		);
 		await setChartOptions(data);
 	};
-	console.log(chartOptionss?.series[0].data);
-	console.log("chart object: ", chartOptionss);
-	// console.log("dataOrder: ", dataOrder);
 	const [dataTime, setdataTime] = useState([]);
 	const handle = (e) => {
 		const value = e.target.value;
@@ -342,7 +336,6 @@ const Dashboard = () => {
 							onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
 						/>
 						{/* <div className="card__body">
-              {console.log(dataUser)}
               <Table
                 headData={topCustomers.head}
                 renderHead={(item, index) => renderCusomerHead(item, index)}
