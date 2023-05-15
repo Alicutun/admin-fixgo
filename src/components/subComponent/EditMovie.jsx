@@ -14,9 +14,8 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-export const EditMovie = ({ setActions, actions, setOpenEdit, nameEdit }) => {
+export const EditMovie = ({ setActions, actions, setOpenEdit, _id }) => {
 	const [movie, setMovie] = useState();
-	console.log("movie:", movie);
 
 	const [name, setName] = useState("");
 	const [image, setImage] = useState("");
@@ -33,7 +32,7 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, nameEdit }) => {
 	const fetchMovie = async () => {
 		try {
 			const { data } = await axios.get(
-				`https://backend-boo.vercel.app/api/movies/${nameEdit}`
+				`https://backend-boo.vercel.app/api/movies/${_id}`
 			);
 			setMovie(data);
 			setActions(!actions);
@@ -44,7 +43,7 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, nameEdit }) => {
 
 	useEffect(() => {
 		fetchMovie();
-	}, [nameEdit]);
+	}, [_id]);
 
 	useEffect(() => {
 		setName(movie?.name);
@@ -62,23 +61,25 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, nameEdit }) => {
 
 	const handleEdit = async () => {
 		const post = {
-			rate: 0,
-			image: image,
-			name: name,
-			genre: genre,
+			_id,
+			image,
+			name,
+			genre,
 			director: direction,
-			cast: cast,
-			describe: describe,
-			releaseTime: releaseTime,
-			runningTime: runningTime,
-			language: language,
-			linkReview: linkReview,
+			cast,
+			describe,
+			releaseTime,
+			runningTime,
+			language,
+			linkReview,
 			price: price,
-			isActive: 1,
 		};
 
 		try {
-			await axios.post(`https://backend-boo.vercel.app/api/movies/add`, post);
+			await axios.post(
+				`https://backend-boo.vercel.app/api/movies/update`,
+				post
+			);
 			setActions(!actions);
 		} catch (err) {
 			console.log(err.message);
@@ -104,12 +105,12 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, nameEdit }) => {
 				<TextField
 					label='Name'
 					value={name}
-					onBlur={(e) => setName(e.target.value)}
+					onChange={(e) => setName(e.target.value)}
 				/>
 				<TextField
 					label='Link image'
 					value={image}
-					onBlur={(e) => setImage(e.target.value)}
+					onChange={(e) => setImage(e.target.value)}
 				/>
 				<Grid container width='100%' columnSpacing={2}>
 					<Grid item xs={3}>
@@ -183,28 +184,28 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, nameEdit }) => {
 				<TextField
 					label='Direction'
 					value={direction}
-					onBlur={(e) => setDirection(e.target.value)}
+					onChange={(e) => setDirection(e.target.value)}
 				/>
 				<TextField
 					value={cast}
 					label='Name Cast'
-					onBlur={(e) => setCast(e.target.value)}
+					onChange={(e) => setCast(e.target.value)}
 				/>
 				<TextField
 					value={describe}
 					label='Describe'
-					onBlur={(e) => setDescribe(e.target.value)}
+					onChange={(e) => setDescribe(e.target.value)}
 				/>
 
 				<TextField
 					value={language}
 					label='Language'
-					onBlur={(e) => setLanguage(e.target.value)}
+					onChange={(e) => setLanguage(e.target.value)}
 				/>
 				<TextField
 					value={linkReview}
 					label='LinkReview'
-					onBlur={(e) => setLinkReview(e.target.value)}
+					onChange={(e) => setLinkReview(e.target.value)}
 				/>
 				<Button onClick={handleEdit}>Submit</Button>
 			</Stack>

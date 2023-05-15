@@ -1,13 +1,4 @@
-import {
-	Button,
-	FormControl,
-	Grid,
-	InputLabel,
-	MenuItem,
-	Select,
-	Stack,
-	TextField,
-} from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
@@ -23,7 +14,7 @@ const Users = () => {
 	const [openAdd, setOpenAdd] = useState(false);
 	const [openEdit, setOpenEdit] = useState(false);
 	const [actions, setActions] = useState(false);
-	const [nameEdit, setNameEdit] = useState("");
+	const [id, setId] = useState("");
 
 	useEffect(() => {
 		const fetchMovies = async () => {
@@ -39,23 +30,22 @@ const Users = () => {
 	// 	console.log("name", name);
 
 	// };
-	const handleDeleteClick = (id) => {};
+	// const handleDeleteClick = (id) => {};
 
 	const columns = useMemo(
 		() => [
-			{ field: "name", headerName: "Movie Name", width: 300 },
-
+			{ field: "_id", headerName: "IdMovie", width: 250 },
 			{ field: "name", headerName: "Movie Name", width: 300 },
 			{ field: "genre", headerName: "Genre", width: 100 },
 			{ field: "rate", headerName: "Rate", width: 100 },
-			{ field: "price", headerName: "Price", width: 70 },
+			{ field: "price", headerName: "Price", width: 100 },
 			{ field: "totalOrder", headerName: "Total order", width: 100 },
 			{ field: "revenue", headerName: "Revenue", width: 100 },
 			{
 				field: "actions",
 				type: "actions",
 				headerName: "Actions",
-				width: 250,
+				width: 100,
 				cellClassName: "actions",
 				getActions: ({ id }) => {
 					return [
@@ -65,14 +55,14 @@ const Users = () => {
 							className='textPrimary'
 							onClick={() => {
 								setOpenEdit(true);
-								setNameEdit(id);
+								setId(id);
 							}}
 						/>,
-						<GridActionsCellItem
-							icon={<Button sx={{ width: "50px" }}>Delete</Button>}
-							label='Delete'
-							onClick={handleDeleteClick(id)}
-						/>,
+						// <GridActionsCellItem
+						// 	icon={<Button sx={{ width: "50px" }}>Delete</Button>}
+						// 	label='Delete'
+						// 	onClick={handleDeleteClick(id)}
+						// />,
 					];
 				},
 			},
@@ -96,7 +86,7 @@ const Users = () => {
 				<EditMovie
 					setActions={setActions}
 					actions={actions}
-					nameEdit={nameEdit}
+					_id={id}
 					setOpenEdit={setOpenEdit}
 				/>
 			)}
@@ -107,7 +97,7 @@ const Users = () => {
 							<DataGrid
 								autoHeight
 								rows={data}
-								getRowId={(row) => row.name}
+								getRowId={(row) => row._id}
 								columns={columns}
 								rowsPerPageOptions={[5, 10, 20]}
 								pageSize={pageSize}
