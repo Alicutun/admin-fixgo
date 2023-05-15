@@ -32,7 +32,7 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, _id }) => {
 	const fetchMovie = async () => {
 		try {
 			const { data } = await axios.get(
-				`https://backend-boo.vercel.app/api/movies/${_id}`
+				`https://backend-boo.vercel.app/api/movies/filterId/${_id}`
 			);
 			setMovie(data);
 			setActions(!actions);

@@ -35,7 +35,7 @@ const Users = () => {
 	const columns = useMemo(
 		() => [
 			{ field: "_id", headerName: "IdMovie", width: 250 },
-			{ field: "name", headerName: "Movie Name", width: 300 },
+			{ field: "name", headerName: "Movie Name", width: 250 },
 			{ field: "genre", headerName: "Genre", width: 100 },
 			{ field: "rate", headerName: "Rate", width: 100 },
 			{ field: "price", headerName: "Price", width: 100 },
