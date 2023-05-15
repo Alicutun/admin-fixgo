@@ -12,6 +12,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { CreateMovie } from "../components/subComponent/CreateMovie";
+import { EditMovie } from "../components/subComponent/EditMovie";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
@@ -20,9 +21,9 @@ const Users = () => {
 
 	const [pageSize, setPageSize] = useState(10);
 	const [openAdd, setOpenAdd] = useState(false);
-
+	const [openEdit, setOpenEdit] = useState(false);
 	const [actions, setActions] = useState(false);
-	console.log("actions:", actions);
+	const [nameEdit, setNameEdit] = useState("");
 
 	useEffect(() => {
 		const fetchMovies = async () => {
@@ -34,11 +35,16 @@ const Users = () => {
 		fetchMovies();
 	}, [actions]);
 
-	const handleEditClick = (id) => () => {};
-	const handleDeleteClick = (id) => () => {};
+	// const handleEditClick = (name) => {
+	// 	console.log("name", name);
+
+	// };
+	const handleDeleteClick = (id) => {};
 
 	const columns = useMemo(
 		() => [
+			{ field: "name", headerName: "Movie Name", width: 300 },
+
 			{ field: "name", headerName: "Movie Name", width: 300 },
 			{ field: "genre", headerName: "Genre", width: 100 },
 			{ field: "rate", headerName: "Rate", width: 100 },
@@ -57,7 +63,10 @@ const Users = () => {
 							icon={<Button sx={{ width: "50px" }}>Edit</Button>}
 							label='Edit'
 							className='textPrimary'
-							onClick={handleEditClick(id)}
+							onClick={() => {
+								setOpenEdit(true);
+								setNameEdit(id);
+							}}
 						/>,
 						<GridActionsCellItem
 							icon={<Button sx={{ width: "50px" }}>Delete</Button>}
@@ -82,10 +91,14 @@ const Users = () => {
 					Add Movie
 				</Button>
 			</Stack>
-			{!openAdd ? (
-				<CreateMovie setActions={setActions} actions={actions} />
-			) : (
-				""
+			{openAdd && <CreateMovie setActions={setActions} actions={actions} />}
+			{openEdit && (
+				<EditMovie
+					setActions={setActions}
+					actions={actions}
+					nameEdit={nameEdit}
+					setOpenEdit={setOpenEdit}
+				/>
 			)}
 			<div className='row'>
 				<div className='col-12'>

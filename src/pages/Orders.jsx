@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import OrderByDay from "../components/subComponent/OrderByDay";
 import OrderByCinema from "../components/subComponent/OrderByCinema";
+import { Container, Grid } from "@mui/material";
 const Orders = () => {
 	const [data, setData] = useState([]);
 	const [pageSize, setPageSize] = useState(10);
@@ -63,10 +64,16 @@ const Orders = () => {
 					</div>
 				</div>
 			)}
-			<div className='orderby'>
-				<OrderByDay />
-				<OrderByCinema />
-			</div>
+			<Container>
+				<Grid container spacing={2}>
+					<Grid item xs={6}>
+						<OrderByDay />
+					</Grid>
+					<Grid item xs={6}>
+						<OrderByCinema />
+					</Grid>
+				</Grid>
+			</Container>
 		</div>
 	);
 };
