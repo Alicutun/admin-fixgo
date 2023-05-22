@@ -54,7 +54,13 @@ export const CreateMovie = ({ setActions, actions }) => {
 		};
 
 		try {
-			await axios.post(`https://backend-boo.vercel.app/api/movies/add`, post);
+			const { data } = await axios.post(
+				`https://backend-boo.vercel.app/api/movies/add`,
+				post
+			);
+			await axios.get(
+				`https://backend-boo.vercel.app/api/recommend/sendRecommend/${data._id}`
+			);
 			setActions(!actions);
 		} catch (err) {
 			console.log(err.message);
