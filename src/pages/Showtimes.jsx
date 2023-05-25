@@ -61,7 +61,7 @@ const Showtimes = () => {
 			idCinema: selectedCinema,
 			time: selectedSession,
 			idMovie: selectedMovie,
-			price: 10,
+			price: "10",
 			image: "https://image.tmdb.org/t/p/w1280/qVYE8g6zNbTbaptUyWkCN7njkC3.jpg",
 			idHall: selectedRoom,
 			startTime: showDate.length ? showDate : dayjs(new Date()).toISOString(),
@@ -73,8 +73,9 @@ const Showtimes = () => {
 				data
 			);
 			alert("add showtime success!");
-		} catch {
-			alert("err!");
+			window.location.reload();
+		} catch (err) {
+			alert(err.message);
 		}
 	};
 
