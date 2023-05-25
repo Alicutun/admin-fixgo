@@ -19,7 +19,6 @@ const Showtimes = () => {
 	const [selectedMovie, setSelectedMovie] = useState("");
 
 	const [cinema, setCinema] = useState([]);
-	console.log("cinema:", cinema);
 	const [selectedCinema, setSelectedCinema] = useState("");
 
 	const [room, setRoom] = useState([]);
@@ -59,19 +58,24 @@ const Showtimes = () => {
 
 	const addShowtimes = async () => {
 		const data = {
-			idCinema: "6358b045169e41aaeeb68d6b",
-			time: "11:30",
-			idMovie: "6465a10e1cdc71e40d33569a",
+			idCinema: selectedCinema,
+			time: selectedSession,
+			idMovie: selectedMovie,
 			price: 10,
 			image: "https://image.tmdb.org/t/p/w1280/qVYE8g6zNbTbaptUyWkCN7njkC3.jpg",
-			idHall: "636b51bee76256d36965d8bf",
-			startTime: "2023-05-26T00:00:00.000+00:00",
+			idHall: selectedRoom,
+			startTime: showDate.length ? showDate : dayjs(new Date()).toISOString(),
 			status: true,
 		};
-		await axios.post(
-			`https://backend-boo.vercel.app/api/movies/showing/add`,
-			data
-		);
+		try {
+			await axios.post(
+				`https://backend-boo.vercel.app/api/movies/showing/add`,
+				data
+			);
+			alert("add showtime success!");
+		} catch {
+			alert("err!");
+		}
 	};
 
 	return (
@@ -140,7 +144,7 @@ const Showtimes = () => {
 						<DatePicker
 							label='Show Date'
 							value={showDate}
-							onChange={(newValue) => setShowDate(newValue)}
+							onChange={(newValue) => setShowDate(newValue.toISOString())}
 						/>
 					</LocalizationProvider>
 				</Grid>
@@ -156,10 +160,10 @@ const Showtimes = () => {
 								setSelectedSession(event.target.value);
 							}}
 						>
-							<MenuItem>9:00</MenuItem>
-							<MenuItem>10:30</MenuItem>
-							<MenuItem>1:00</MenuItem>
-							<MenuItem>2:30</MenuItem>
+							<MenuItem value='9:00'>9:00</MenuItem>
+							<MenuItem value='10:30'>10:30</MenuItem>
+							<MenuItem value='1:00'>1:00</MenuItem>
+							<MenuItem value='2:30'>2:30</MenuItem>
 						</Select>
 					</FormControl>
 				</Grid>
