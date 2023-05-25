@@ -20,6 +20,11 @@
 		"icon": "bx bx-film"
 	},
 	{
+		"display_name": "Showtimes",
+		"route": "/showtimes",
+		"icon": "bx bx-calendar-edit"
+	},
+	{
 		"display_name": "Orders",
 		"route": "/orders",
 		"icon": "bx bx-cart"
