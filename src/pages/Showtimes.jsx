@@ -20,12 +20,18 @@ const Showtimes = () => {
 
 	const [cinema, setCinema] = useState([]);
 	const [selectedCinema, setSelectedCinema] = useState("");
+	console.log("selectedCinema:", selectedCinema);
 
 	const [room, setRoom] = useState([]);
 	const [selectedRoom, setSelectedRoom] = useState("");
+	console.log("selectedRoom:", selectedRoom);
 
 	const [session, setSession] = useState([]);
+	console.log("session:", session);
 	const [selectedSession, setSelectedSession] = useState("");
+	console.log("selectedSession:", selectedSession);
+
+	const [price, setPrice] = useState(10);
 
 	const [showDate, setShowDate] = useState(dayjs(new Date()));
 
@@ -45,23 +51,36 @@ const Showtimes = () => {
 
 	const fetchRoom = async () => {
 		const { data } = await axios.get(
-			`https://backend-boo.vercel.app/api/movies/cinemaHalls`
+			`https://backend-boo.vercel.app/api/movies/cinemaHalls/${selectedCinema}`
 		);
 		setRoom(data.reverse());
+	};
+
+	const fetchSession = async () => {
+		const { data } = await axios.get(
+			`https://backend-boo.vercel.app/api/movies/idrom`
+		);
+		setSession(data);
 	};
 
 	useEffect(() => {
 		fetchMovies();
 		fetchCinema();
 		fetchRoom();
+		return () => {};
 	}, []);
+
+	useEffect(() => {
+		fetchSession();
+		return () => {};
+	}, [selectedRoom]);
 
 	const addShowtimes = async () => {
 		const data = {
 			idCinema: selectedCinema,
 			time: selectedSession,
 			idMovie: selectedMovie,
-			price: "10",
+			price: price,
 			image: "https://image.tmdb.org/t/p/w1280/qVYE8g6zNbTbaptUyWkCN7njkC3.jpg",
 			idHall: selectedRoom,
 			startTime: showDate.length ? showDate : dayjs(new Date()).toISOString(),
@@ -82,8 +101,14 @@ const Showtimes = () => {
 	return (
 		<div>
 			<h2 className='page-header'>Showtimes</h2>
-			<Grid container direction='column' spacing={2} padding='0 120px'>
-				<Grid item>
+			<Grid
+				container
+				direction='row'
+				spacing={2}
+				padding='0 120px'
+				justifyContent='center'
+			>
+				<Grid item xs={12}>
 					<FormControl fullWidth>
 						<InputLabel id='demo-simple-select-label'>Movie</InputLabel>
 						<Select
@@ -102,7 +127,7 @@ const Showtimes = () => {
 					</FormControl>
 				</Grid>
 
-				<Grid item>
+				<Grid item xs={12}>
 					<FormControl fullWidth>
 						<InputLabel id='demo-simple-select-label'>Cinema</InputLabel>
 						<Select
@@ -120,7 +145,7 @@ const Showtimes = () => {
 						</Select>
 					</FormControl>
 				</Grid>
-				<Grid item>
+				<Grid item xs={12}>
 					<FormControl fullWidth>
 						<InputLabel id='demo-simple-select-label'>Room</InputLabel>
 						<Select
@@ -140,7 +165,7 @@ const Showtimes = () => {
 						</Select>
 					</FormControl>
 				</Grid>
-				<Grid item>
+				<Grid item xs={4}>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
 							label='Show Date'
@@ -149,7 +174,7 @@ const Showtimes = () => {
 						/>
 					</LocalizationProvider>
 				</Grid>
-				<Grid item>
+				<Grid item xs={4}>
 					<FormControl fullWidth>
 						<InputLabel id='demo-simple-select-label'>Session</InputLabel>
 						<Select
@@ -161,15 +186,31 @@ const Showtimes = () => {
 								setSelectedSession(event.target.value);
 							}}
 						>
-							<MenuItem value='9:00'>9:00</MenuItem>
-							<MenuItem value='10:30'>10:30</MenuItem>
-							<MenuItem value='1:00'>1:00</MenuItem>
-							<MenuItem value='2:30'>2:30</MenuItem>
+							{session.map((item) => (
+								<MenuItem value={item}>{item}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
+				<Grid item xs={4}>
+					<FormControl fullWidth>
+						<InputLabel id='demo-simple-select-label'>Price</InputLabel>
+						<Select
+							labelId='demo-simple-select-label'
+							id='demo-simple-select'
+							value={price}
+							label='Price'
+							onChange={(event) => {
+								setPrice(event.target.value);
+							}}
+						>
+							<MenuItem value={10}>10</MenuItem>
+							{/* <MenuItem value={15}>15</MenuItem> */}
 						</Select>
 					</FormControl>
 				</Grid>
 
-				<Button sx={{ mt: "20px" }} onClick={addShowtimes}>
+				<Button sx={{ mt: "20px", width: "200px" }} onClick={addShowtimes}>
 					Add showtimes
 				</Button>
 			</Grid>
