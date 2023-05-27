@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import dayjs from "dayjs";
+import moment from "moment";
 
 const Showtimes = () => {
 	const [movie, setMovie] = useState([]);
@@ -20,16 +21,12 @@ const Showtimes = () => {
 
 	const [cinema, setCinema] = useState([]);
 	const [selectedCinema, setSelectedCinema] = useState("");
-	console.log("selectedCinema:", selectedCinema);
 
 	const [room, setRoom] = useState([]);
 	const [selectedRoom, setSelectedRoom] = useState("");
-	console.log("selectedRoom:", selectedRoom);
 
 	const [session, setSession] = useState([]);
-	console.log("session:", session);
 	const [selectedSession, setSelectedSession] = useState("");
-	console.log("selectedSession:", selectedSession);
 
 	const [price, setPrice] = useState(10);
 
@@ -66,9 +63,13 @@ const Showtimes = () => {
 	useEffect(() => {
 		fetchMovies();
 		fetchCinema();
-		fetchRoom();
 		return () => {};
 	}, []);
+
+	useEffect(() => {
+		if (selectedCinema !== "") fetchRoom();
+		return () => {};
+	}, [selectedCinema]);
 
 	useEffect(() => {
 		fetchSession();
@@ -81,9 +82,10 @@ const Showtimes = () => {
 			time: selectedSession,
 			idMovie: selectedMovie,
 			price: price,
-			image: "https://image.tmdb.org/t/p/w1280/qVYE8g6zNbTbaptUyWkCN7njkC3.jpg",
 			idHall: selectedRoom,
-			startTime: showDate.length ? showDate : dayjs(new Date()).toISOString(),
+			startTime: showDate.length
+				? moment(dayjs(showDate).toISOString()).format("YYYY-MM-DD")
+				: moment(dayjs(new Date()).toISOString()).format("YYYY-MM-DD"),
 			status: true,
 		};
 		try {
@@ -168,6 +170,7 @@ const Showtimes = () => {
 				<Grid item xs={4}>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
+							sx={{ width: "100%" }}
 							label='Show Date'
 							value={showDate}
 							onChange={(newValue) => setShowDate(newValue.toISOString())}
