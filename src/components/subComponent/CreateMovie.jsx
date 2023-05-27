@@ -49,7 +49,7 @@ export const CreateMovie = ({ setActions, actions }) => {
 			runningTime: runningTime,
 			language: language,
 			linkReview: linkReview,
-			price: price,
+			price: 10,
 			isActive: 1,
 		};
 
@@ -76,8 +76,8 @@ export const CreateMovie = ({ setActions, actions }) => {
 		>
 			<TextField label='Name' onBlur={(e) => setName(e.target.value)} />
 			<TextField label='Link image' onBlur={(e) => setImage(e.target.value)} />
-			<Grid container width='100%' columnSpacing={2}>
-				<Grid item xs={3}>
+			<Grid container columnSpacing={2}>
+				<Grid item xs={4}>
 					<FormControl fullWidth>
 						<InputLabel id='demo-simple-select-label'>Genre</InputLabel>
 						<Select
@@ -98,7 +98,7 @@ export const CreateMovie = ({ setActions, actions }) => {
 						</Select>
 					</FormControl>
 				</Grid>
-				<Grid item xs={3}>
+				<Grid item xs={4}>
 					<FormControl fullWidth>
 						<InputLabel id='demo-simple-select-label'>Running Time</InputLabel>
 						<Select
@@ -115,7 +115,7 @@ export const CreateMovie = ({ setActions, actions }) => {
 						</Select>
 					</FormControl>
 				</Grid>
-				<Grid item xs={3}>
+				{/* <Grid item xs={3}>
 					<FormControl fullWidth>
 						<InputLabel id='demo-simple-select-label'>Price</InputLabel>
 						<Select
@@ -131,10 +131,11 @@ export const CreateMovie = ({ setActions, actions }) => {
 							<MenuItem value={15}>15</MenuItem>
 						</Select>
 					</FormControl>
-				</Grid>
-				<Grid item xs={3}>
+				</Grid> */}
+				<Grid item xs={4}>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
+							sx={{ width: "100%" }}
 							label='Release Time'
 							value={releaseTime}
 							onChange={(newValue) => setReleaseTime(newValue)}

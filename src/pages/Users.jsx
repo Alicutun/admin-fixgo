@@ -16,9 +16,9 @@ const Users = () => {
 	}, []);
 	const columns = useMemo(
 		() => [
-			{ field: "id", headerName: "ID", width: 50 },
+			{ field: "id", headerName: "ID", width: 250 },
 			{ field: "name", headerName: "Username", width: 100 },
-			{ field: "email", headerName: "Email", width: 200 },
+			{ field: "email", headerName: "Email", width: 250 },
 			{ field: "totalOrder", headerName: "Total Order", width: 100 },
 			{ field: "totalSpending", headerName: "Total Spending", width: 120 },
 			{ field: "createdAt", headerName: "Create", width: 110 },

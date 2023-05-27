@@ -21,11 +21,17 @@ const Orders = () => {
 			{ field: "idBill", headerName: "ID", width: 50 },
 			{ field: "fullName" || "username", headerName: "Full name", width: 120 },
 			{ field: "createDate", headerName: "Date Order", width: 100 },
-			{ field: "movie", headerName: "Movie", width: 120 },
-			{ field: "cinema", headerName: "Cinema", width: 100 },
+			{ field: "movie", headerName: "Movie", width: 200 },
+			{ field: "cinema", headerName: "Cinema", width: 150 },
 			{ field: "date", headerName: "Date", width: 100 },
 			{ field: "session", headerName: "Session", width: 70 },
-			{ field: "listItem", headerName: "Seat ", width: 150 },
+			{ field: "list", headerName: "Seat ", width: 200 },
+			// {
+			// 	// field: "listItem",
+			// 	headerName: "SEAT",
+			// 	width: 200,
+			// 	valueGetter: (item) => item.row.list,
+			// },
 			{ field: "totalMoney", headerName: "Price", width: 100 },
 
 			// {
@@ -65,7 +71,7 @@ const Orders = () => {
 				</div>
 			)}
 			<Container>
-				<Grid container spacing={2}>
+				<Grid container spacing={3}>
 					<Grid item xs={6}>
 						<OrderByDay />
 					</Grid>

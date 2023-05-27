@@ -2,7 +2,16 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-
+import {
+	Button,
+	FormControl,
+	Grid,
+	InputLabel,
+	MenuItem,
+	Select,
+	Stack,
+	TextField,
+} from "@mui/material";
 const OrderByCinema = () => {
 	// by Day
 	// Date
@@ -68,53 +77,70 @@ const OrderByCinema = () => {
 		<div>
 			<h2 className='page-header'>By Cinema</h2>
 			{/* rạp */}
-			<div style={{ fontSize: "20px" }}>
-				Cinema:&emsp;
-				<select
-					className='select'
-					id='time'
-					onChange={(e) => setId1(e.target.value)}
-				>
-					<option value=''>-- None --</option>
-					{day1?.map((items, index) => (
-						<option key={index} value={items._id}>
-							{items.name}
-						</option>
-					))}
-				</select>
-			</div>
-			{/* phim */}
-			<div style={{ fontSize: "20px" }}>
-				Movie:&emsp;
-				<select
-					className='select'
-					id='cinema'
-					onChange={(e) => setId2(e.target.value)}
-				>
-					<option value=''> -- Select Movie --</option>
-					{day2?.map((items, index) => (
-						<option key={index} value={items.idMovie}>
-							{items.nameMovie}
-						</option>
-					))}
-				</select>
-			</div>
-			{/* ngày */}
-			<div style={{ fontSize: "20px" }}>
-				Date:&emsp;
-				<select
-					className='select'
-					id='time'
-					onChange={(e) => setId3(e.target.value)}
-				>
-					<option value=''>-- None --</option>
-					{day3?.map((items, index) => (
-						<option key={index} value={items}>
-							{items}
-						</option>
-					))}
-				</select>
-			</div>
+
+			<Grid container direction='column' spacing={2} alignItems='center'>
+				{/* ngày */}
+				<Grid item width='80%'>
+					<FormControl fullWidth>
+						<InputLabel id='demo-simple-select-label'>Cinema</InputLabel>
+						<Select
+							labelId='demo-simple-select-label'
+							id='demo-simple-select'
+							value={id1}
+							label='Cinema'
+							onChange={(event) => {
+								setId1(event.target.value);
+							}}
+						>
+							{day1?.map((item) => (
+								<MenuItem value={item._id}>{item.name}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
+
+				{/* rạp */}
+				<Grid item width='80%'>
+					<FormControl fullWidth>
+						<InputLabel id='demo-simple-select-label'>Movie</InputLabel>
+						<Select
+							labelId='demo-simple-select-label'
+							id='demo-simple-select'
+							value={id2}
+							label='Movie'
+							onChange={(event) => {
+								setId2(event.target.value);
+							}}
+						>
+							{day2?.map((item) => (
+								<MenuItem value={item.idMovie}>{item.nameMovie}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
+
+				{/* phim */}
+
+				<Grid item width='80%' mb={2}>
+					<FormControl fullWidth>
+						<InputLabel id='demo-simple-select-label'>Movie</InputLabel>
+						<Select
+							labelId='demo-simple-select-label'
+							id='demo-simple-select'
+							value={id3}
+							label='Movie'
+							onChange={(event) => {
+								setId3(event.target.value);
+							}}
+						>
+							{day3?.map((item) => (
+								<MenuItem value={item}>{item}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
+			</Grid>
+
 			<div className='row'>
 				<div className='col-12'>
 					<div className='card'>
