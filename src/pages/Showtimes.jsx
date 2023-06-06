@@ -31,6 +31,7 @@ const Showtimes = () => {
 	const [price, setPrice] = useState(10);
 
 	const [showDate, setShowDate] = useState(dayjs(new Date()));
+	console.log("showDate:", showDate);
 
 	const fetchMovies = async () => {
 		const { data } = await axios.get(
@@ -55,7 +56,8 @@ const Showtimes = () => {
 
 	const fetchSession = async () => {
 		const { data } = await axios.get(
-			`https://backend-boo.vercel.app/api/movies/idrom`
+			`https://backend-boo.vercel.app/api/movies/idrom/${selectedCinema}/${selectedRoom}/${showDate}
+			`
 		);
 		setSession(data);
 	};
