@@ -62,7 +62,7 @@ export const CreateMovie = ({ setActions, actions }) => {
 				`https://backend-boo.vercel.app/api/recommend/sendRecommend/${data._id}`
 			);
 			setActions(!actions);
-			alert("add showtime success!");
+			alert("Create success!");
 			window.location.reload();
 		} catch (err) {
 			console.log(err.message);
