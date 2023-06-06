@@ -36,8 +36,6 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, _id }) => {
 			);
 			setMovie(data);
 			setActions(!actions);
-			alert("add showtime success!");
-			window.location.reload();
 		} catch (err) {
 			console.log(err.message);
 		}
@@ -82,6 +80,8 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, _id }) => {
 				`https://backend-boo.vercel.app/api/movies/update`,
 				post
 			);
+			alert("Edit success!");
+			window.location.reload();
 			setActions(!actions);
 		} catch (err) {
 			console.log(err.message);
