@@ -55,7 +55,7 @@ const TicketChecker = () => {
 			</Stack>
 
 			{openModal &&
-				(data?.length > 0 ? (
+				(data[0]?.check === "Today" ? (
 					<Stack
 						direction='column'
 						alignItems='center'
@@ -70,6 +70,7 @@ const TicketChecker = () => {
 							Seat:&nbsp;
 							{mapSeat}
 						</Typography>
+						<Typography>Payment Method: {data[0].paymentMethod}</Typography>
 					</Stack>
 				) : (
 					<Stack

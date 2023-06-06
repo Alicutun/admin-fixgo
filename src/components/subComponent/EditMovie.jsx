@@ -36,6 +36,8 @@ export const EditMovie = ({ setActions, actions, setOpenEdit, _id }) => {
 			);
 			setMovie(data);
 			setActions(!actions);
+			alert("add showtime success!");
+			window.location.reload();
 		} catch (err) {
 			console.log(err.message);
 		}
