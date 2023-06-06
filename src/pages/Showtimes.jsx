@@ -59,6 +59,8 @@ const Showtimes = () => {
 			`https://backend-boo.vercel.app/api/movies/idrom/${selectedCinema}/${selectedRoom}/${showDate}
 			`
 		);
+		console.log(`https://backend-boo.vercel.app/api/movies/idrom/${selectedCinema}/${selectedRoom}/${showDate}
+		`);
 		setSession(data);
 	};
 
@@ -76,7 +78,7 @@ const Showtimes = () => {
 	useEffect(() => {
 		fetchSession();
 		return () => {};
-	}, [selectedRoom]);
+	}, [showDate]);
 
 	const addShowtimes = async () => {
 		const data = {
